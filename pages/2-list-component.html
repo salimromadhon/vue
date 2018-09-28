@@ -1,0 +1,44 @@
+<a href="https://vuejs.org/v2/guide/list.html" target="_blank">Reference &rarr;</a>
+
+<div id="app-7">
+  <ol>
+    <todo-item
+      v-for="(item, index) in groceryList"
+      v-bind:todo="item"
+      v-bind:key="item.id"
+      v-on:remove="groceryList.splice(index, 1)">
+    </todo-item>
+  </ol>
+  <form v-on:submit.prevent="addItem" style="margin-top: 1em">
+  	<input type="text" v-model="newItemText">
+  	<input type="submit" value="Add">
+  </form>
+</div>
+
+<script type="text/javascript">
+  Vue.component('todo-item', {
+    props: ['todo'],
+    template: '<li>{{ todo.text }} &middot; <a v-on:click="$emit(\'remove\')">×</a></li>'
+  })
+
+  var app7 = new Vue({
+    el: '#app-7',
+    data: {
+      newItemText: '',
+      groceryList: [
+        { id: 0, text: 'Vegetables' },
+        { id: 1, text: 'Cheese' },
+        { id: 2, text: 'Whatever else humans are supposed to eat' }
+      ]
+    },
+    methods: {
+    	addItem: function () {
+    		this.newItemText = this.newItemText.trim();
+    		if (this.newItemText != '') {
+    			this.groceryList.push({ id: this.groceryList.length, text: this.newItemText })
+    			this.newItemText = '';
+    		}
+    	}
+    }
+  })
+</script>

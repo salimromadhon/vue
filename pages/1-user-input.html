@@ -1,0 +1,19 @@
+<form id="app-5" v-on:submit.prevent="reverseMessage">
+  <p>{{ message }}</p>
+  <input v-model="message" type="text">
+  <input type="submit" value="Reverse Message">
+</form>
+
+<script type="text/javascript">
+  var app5 = new Vue({
+    el: '#app-5',
+    data: {
+      message: 'Hello VueJS!'
+    },
+    methods: {
+      reverseMessage: function () {
+        this.message = this.message.split('').reverse().join('')
+      }
+    }
+  })
+</script>
